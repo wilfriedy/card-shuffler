@@ -26,12 +26,10 @@ function App() {
   };
 
   const handleChoice = (card) => {
-    // console.log(card);
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
 
   useEffect(() => {
-    // console.log(turns);
     if (choiceOne && choiceTwo) {
       if (choiceOne.src === choiceTwo.src) {
         console.log("matched");
