@@ -43,7 +43,9 @@ function App() {
         });
         takeTurn();
       } else {
-        takeTurn();
+        setTimeout(() => {
+          takeTurn();
+        }, 1000);
       }
     }
   }, [choiceOne, choiceTwo]);
@@ -60,6 +62,7 @@ function App() {
   return (
     <div className="App">
       <h1>Magic Match</h1>
+      <p>You have gone {turns} turns</p>
       <button onClick={shuffleCards}>New Game</button>
       <div className="card-grid">
         {cards.map((card) => (
