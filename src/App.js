@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import SingleCard from "./components/SingleCard";
 const cardImgs = [
+  { src: "/img/sword-1.png", matched: false },
   { src: "/img/helmet-1.png", matched: false },
   { src: "/img/potion-1.png", matched: false },
   { src: "/img/ring-1.png", matched: false },
   { src: "/img/scroll-1.png", matched: false },
   { src: "/img/shield-1.png", matched: false },
-  { src: "/img/sword-1.png", matched: false },
 ];
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
   const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
+  const [disabled, setDisabled] = useState(false);
 
   const shuffleCards = () => {
     let cardsToshuffle = [...cardImgs, ...cardImgs]
@@ -23,6 +24,8 @@ function App() {
 
     setCards(cardsToshuffle);
     setTurns(0);
+    setChoiceOne(null);
+    setChoiceTwo(null);
   };
 
   const handleChoice = (card) => {
@@ -31,6 +34,7 @@ function App() {
 
   useEffect(() => {
     if (choiceOne && choiceTwo) {
+      setDisabled(true);
       if (choiceOne.src === choiceTwo.src) {
         setCards((prevCard) => {
           return prevCard.map((card) => {
@@ -49,14 +53,15 @@ function App() {
       }
     }
   }, [choiceOne, choiceTwo]);
-
-  // reset choices and augment turns
-  console.log(cards);
+  useEffect(() => {
+    shuffleCards();
+  }, []);
 
   const takeTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
     setTurns((prev) => prev + 1);
+    setDisabled(false);
   };
 
   return (
@@ -71,6 +76,7 @@ function App() {
             handleChoice={handleChoice}
             cards={card}
             key={card.id}
+            disabled={disabled}
           />
         ))}
       </div>
