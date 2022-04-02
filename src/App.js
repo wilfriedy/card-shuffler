@@ -49,6 +49,7 @@ function App() {
   }, [choiceOne, choiceTwo]);
 
   // reset choices and augment turns
+  console.log(cards);
 
   const takeTurn = () => {
     setChoiceOne(null);
@@ -62,7 +63,12 @@ function App() {
       <button onClick={shuffleCards}>New Game</button>
       <div className="card-grid">
         {cards.map((card) => (
-          <SingleCard handleChoice={handleChoice} cards={card} key={card.id} />
+          <SingleCard
+            flipped={card === choiceOne || card === choiceTwo || card.matched}
+            handleChoice={handleChoice}
+            cards={card}
+            key={card.id}
+          />
         ))}
       </div>
     </div>

@@ -1,13 +1,13 @@
 import React from "react";
 import "./SingleCard.css";
 
-export default function SingleCard({ cards, handleChoice }) {
+export default function SingleCard({ cards, handleChoice, flipped }) {
   const handleClick = () => {
     handleChoice(cards);
   };
   return (
     <div className="card">
-      <div>
+      <div className={flipped ? "flipped" : ""}>
         <img src={cards.src} alt="card front" className="front" />
         <img
           onClick={handleClick}
